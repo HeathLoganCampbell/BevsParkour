@@ -21,6 +21,11 @@ public class SpawnListener implements Listener
 	public void onSpawn(PlayerRespawnEvent e)
 	{
 		User user = this.getUserManager().getUser(e.getPlayer());
+		if(user.getCheckpoint() == null)
+		{
+			e.setRespawnLocation(Parkour.getLobbySpawn());
+			return;
+		}
 		e.setRespawnLocation(user.getCheckpoint().add(0, 1.5, 0));
 	}
 	

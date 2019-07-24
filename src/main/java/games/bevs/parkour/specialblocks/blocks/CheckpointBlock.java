@@ -1,5 +1,6 @@
 package games.bevs.parkour.specialblocks.blocks;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class CheckpointBlock extends SpecialBlock
 		Player player = log.player;
 		User user = log.user;
 		
-		Location newCheckpoint = log.block.getLocation();
+		Location newCheckpoint = log.block.getLocation().add(0.5, 0.5, 0.5);
 		
 		if(user.hasFinished()) 
 		{
@@ -31,8 +32,11 @@ public class CheckpointBlock extends SpecialBlock
 		}
 		
 		//Don't want to be spammed checkpoint ever time you respawn
-		if(user.getCheckpoint().getBlock() == log.block) return;
-		
+		if(user.getCheckpoint() != null)
+		{
+			Bukkit.broadcastMessage(user.getCheckpoint().distanceSquared(log.block.getLocation()) + "");
+		}
+		if(user.getCheckpoint() != null && user.getCheckpoint().distanceSquared(log.block.getLocation()) < 2.25) return;
 		user.setCheckpoint(newCheckpoint);
 		player.sendMessage(CC.green + "Checkpoint!");
 	}
