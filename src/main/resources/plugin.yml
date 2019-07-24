@@ -1,0 +1,4 @@
+name: BevsParkour
+main: games.bevs.parkour.ParkourPlugin
+version: 0.0.1
+authors: [HeathLoganCampbell]
